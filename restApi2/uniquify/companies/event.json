@@ -1,0 +1,30 @@
+{
+  "header": {
+    "Authorization" : "Bearer 4a5cdaea3920f832f8b3e2a98c0aa807b901bc9423f16b937001cca61b489530"
+  },
+  "body": {
+    "organizations": [
+      {"value": "BANK OF AMERICA CORP"},
+      {"value": "AEROPOSTALE INC"},
+      {"value": "Bear Stearns & Co Inc (Ceased Trading 2008)"},
+      {"value": "Tailwind Capital Group LLC"},
+      {"value": "Skyworks LLC"},
+      {"value": "Skyworks Corp"},
+      {"value": "Skyworks Holdings"},
+      {"value": "Medallia Inc"},
+      {"value": "Bank of America Corporation"},
+      {"value": "eTouches corporations"},
+      {"value": "RelPro Inc (Relationship Capital Partners Inc (Relcapp) prior to 2015)"},
+      {"value": "DF King Worldwide (Formerly known as Sage Holdings LLC)"},
+      {"value": "eTouches inc"},
+      {"value": "MERRILL LYNCH & CO INC (De-listed 01/2009)"},
+      {"value": "royal bank of canada"},
+      {"value": "royal bank of scotland"},
+      {"value": "Bank of New York"},
+      {"value": "Raytheon Technical Services Company"},
+      {"value": "Citrix Systems"},
+      {"value": "3i-Mind Inc"},
+      {"value": "The Riverside company"}
+    ]
+  }
+}

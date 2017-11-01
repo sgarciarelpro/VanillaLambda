@@ -1,0 +1,29 @@
+{
+  "header": {
+    "userToken": "add1c2f2dce23fcae327a8f614c53ab53fd07fad91dd7ed913e29e184543f41c"
+  },
+  "body": {
+    "categoryId": 24,
+    "categoryName": " Cloud Infrastructure Computing",
+    "vendorId": 3,
+    "vendorName": "1&1",
+    "productId": 3,
+    "productName": "1&1",
+    "company": "",
+    "city": "",
+    "state": "",
+    "country": "",
+    "domain": "",
+    "minEmployee": 0,
+    "maxEmployee": 0,
+    "minRevenue": 0,
+    "maxRevenue": 0,
+    "minIntensity": 0,
+    "relProIndustries": [],
+    "paid": true,
+    "page": 1,
+    "pageSize": null,
+    "sortField": "name",
+    "sortOrder": "asc"
+  }
+}

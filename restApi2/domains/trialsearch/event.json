@@ -1,0 +1,21 @@
+{
+  "header": {
+    "userToken": "127ab41aaaf4994652531c60f0a889070a20aedc34966f8720a45f0b2b96b823"
+  },
+  "body": {
+    "page": 1,
+    "pageSize": 10,
+    "category": "",
+    "vendor": "Salesforce.com",
+    "product": "",
+    "companyName": "",
+    "companyLocation": "",
+    "companyRevenue": 0,
+    "companyEmployees": 0,
+    "companyIndustry": null,
+    "companyCountry:": "",
+    "relProIndustries": [13],
+    "sortField": "lastVerified",
+    "sortOrder": "desc"
+  }
+}

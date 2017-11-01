@@ -1,0 +1,19 @@
+{
+  "name": "restApi2",
+  "version": "0.0.1",
+  "description": "Vanilla lambda project",
+  "author": "me",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.3.11"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-compress": "^1.4.3"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "userToken": "22b64c2831b4fa89375f2bce29aa2bf4c54aacd91307ad3ba8b4a5554b8173f2",
+  "body": {
+    "firstName":"Test",
+    "lastName":"Testington",
+    "company":"test",
+    "title":"test",
+    "email":"test2@gmail.com",
+    "phone":"3474584933",
+    "gReCaptcha":"03AHhf_53b0JIwWaZjbjbHa3XSOym8YIFaaS9TNAz091xXBtX6UmHGCrBfc9kCh9TAJ9sZh1sfA31Upmbi-v7CXQK_zilReAY8S-BDHlz3VjWaJUsm2zXCy1e3yPuyrh6i5zMwi718om8Ue_ru_JOZIrXDlm63k-tmxlxImQFOQFipi6NsKXtTEOo4skrdpfhfJNUSuNL6_3VupNUiY3Xu_Gz9gxUDY8qjP3I8Q8Pb2Fav3ixRNGz5E8XROCukv2YF-GLb-09jZKes-ZLtah76HgWVftMAxHe9kXO_zLAFDDePeimeZOILoTW2eppLtLng6NwSoHNReY150he2LRnzu3w71uf4rjX3THdXoocVzc7rgqpGJbGR-DthLw8Q1ayGxF5REAt2vQQ7kWeeD5UtV6hR94CNQnXxXJBwY0-G2Qw1fPgjGdYpk8o",
+    "referrerURL":"https://app.relpro.com/#signup",
+    "promoCode":""
+  }
+}

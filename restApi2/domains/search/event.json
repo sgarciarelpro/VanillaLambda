@@ -1,0 +1,21 @@
+{
+  "header": {
+    "userToken": "fe693ee9fb9168b0f5e04b27f286f02841b5df90ed2faf91ee50ab2e5c678edd"
+  },
+  "body": {
+    "product": "Aplicor",
+    "vendor": "",
+    "page": 1,
+    "pageSize": 10,
+    "category": "",
+    "companyName": "club",
+    "companyLocation": "",
+    "minCompanyEmployees": 0,
+    "maxCompanyEmployees": 0,
+    "minCompanyRevenue": 0,
+    "maxCompanyRevenue": 0,
+    "relProIndustries": [],
+    "sortField": "name",
+    "sortOrder": "asc"
+  }
+}
