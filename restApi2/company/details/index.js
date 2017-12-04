@@ -2,6 +2,7 @@
 
 var _ = require("underscore");
 var moment = require('moment');
+var config = require("config/env-config.js").config;
 
 // Require Logic
 var lib = require('lib');
@@ -9,10 +10,6 @@ var PromiseRequest = lib.PromiseRequest;
 var createErrorMsg = lib.createErrorMsg;
 var errorCheck = lib.errorCheck;
 var hgDataSourceId = lib.hgDataSourceId;
-
-var host = process.env.relProHost;
-var basePath = process.env.relProBasePath;
-if (basePath == '/') basePath = '';
 
 var techSearchEndpoint = process.env.techSearchEndpoint;
 var domainTechStackSearch = lib.buildDomainTechStackSearch(techSearchEndpoint);
@@ -68,15 +65,24 @@ var parseResult = function(uResult, dataCategories, reveals){
   pResult.reveal = true;
 
   return pResult;
-}
+};
 
 module.exports.handler = function(event, context, cb) {
 
-  console.log('Received event:');
-  console.log(JSON.stringify(event, null, ' '));
-  console.log(host + ':' + basePath);
+    console.log('EVENT = ', event);
+    var stage = event.stageVariables.functionAlias;
+    console.log('STAGE = ', stage);
+    var host = config[stage].relProHost;
+    console.log("NEW HOST = ", host);
+    var basePath = config[stage].relProBasePath;
+    if (basePath == '/') basePath = '';
 
-  if (event.header.userToken != "" && event.header.userToken != undefined){
+    var techSearchEndpoint = process.env.techSearchEndpoint;
+    var domainTechStackSearch = lib.buildDomainTechStackSearch(techSearchEndpoint);
+
+    var eventBody = JSON.parse(event.body);
+
+  if (event.headers.userToken != "" && event.headers.userToken != undefined){
 
     var revealOptions = {
       host : host,
@@ -84,7 +90,7 @@ module.exports.handler = function(event, context, cb) {
       path : basePath + '/prospector/v1/contract/techSearch/data',
       method : 'GET',
       headers : {
-        "userToken" : event.header.userToken,
+        "userToken" : event.headers.userToken,
         "content-type": "application/json"
       }
     };
@@ -96,7 +102,7 @@ module.exports.handler = function(event, context, cb) {
 
       if (values.error != undefined) {
         var errResponse = errorCheck(values, "revealDetails");
-        return cb(null, errResponse);
+          return cb(null, {"statusCode": 400, "body": JSON.stringify(errResponse)});
       }
       var remainingReveals = 0;
       if (values.body.remainingReveals != undefined) {
@@ -145,7 +151,7 @@ module.exports.handler = function(event, context, cb) {
                     } else {
                       console.log('5b');
                       var errorResponse = createErrorMsg(-300, "CompanySearch");
-                      return cb(null, errorResponse);
+                      return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
                     }
                   }
               ).then(function (data) {
@@ -180,7 +186,7 @@ module.exports.handler = function(event, context, cb) {
                       method : 'POST',
                       headers: {
                         "content-type": "application/json",
-                        "userToken" : event.header.userToken
+                        "userToken" : event.headers.userToken
                       }
                     };
 
@@ -192,11 +198,11 @@ module.exports.handler = function(event, context, cb) {
                       console.log("values=" + JSON.stringify(values.body.error) + "\n\r");
                       if (values.body.error != undefined) {
                         var errorResponse = createErrorMsg(values.body.error.status, "RevealDetails");
-                        return cb(null, errorResponse);
+                        return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
 
                       } else {
                         response.remainingReveals = values.body.remainingReveals;
-                        return cb(null, response);
+                          return cb(null, {"statusCode": 200, "body":JSON.stringify(response)});
                       }
                     });
 
@@ -212,23 +218,23 @@ module.exports.handler = function(event, context, cb) {
                         "status": 0
                       }
                     };
-                    return cb(errorResponse, null);
+                      return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
                   }
                 } else {
                   console.log('6b');
                   var errorResponse = createErrorMsg(-200, "CompanySearch");
-                  return cb(null, response);
+                  return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
                 }
 
               }).catch(function(e) {
                 console.error(e);
                 var errorResponse = createErrorMsg(-285, "RevealDetails");
-                return cb(null, errorResponse);
+                return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
               });
 
             } else {
               var errorResponse = createErrorMsg(-287, "RevealDetails");
-              return cb(null, errorResponse);
+              return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
             }
 
 
@@ -236,7 +242,7 @@ module.exports.handler = function(event, context, cb) {
       } else {
 
         var errorResponse = createErrorMsg(-283, "RevealDetails");
-        return cb(null, errorResponse);
+        return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
 
       }
 
@@ -244,6 +250,6 @@ module.exports.handler = function(event, context, cb) {
 
   } else {
     var errorResponse = createErrorMsg(-300, "RevealDetails");
-    return cb(null, errorResponse);
+    return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
   }
 };

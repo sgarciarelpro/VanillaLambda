@@ -1,10 +1,10 @@
 {
   "header": {
-    "userToken": "399aaa28a8aa4d8adfc4be656724b1d7fb3cbb2739a412a27f73a3234e879ec7"
+    "userToken": "54fc4221210230d8f2c094d6dca17bdbe5ad961e53eaa987e3ea924b7982da2e"
   },
   "body": {
-    "vendorName": "AT&T",
-    "productName": "ABAP",
-    "categoryName": "Application Development & Management"
+    "categoryName": "Application Development & Management",
+    "vendorName": "",
+    "productName": ""
   }
 }

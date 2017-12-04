@@ -1,7 +1,16 @@
 var AWS = require('aws-sdk');
 var credentials = new AWS.SharedIniFileCredentials({profile: 'relpro'});
 
-var lambda = new AWS.Lambda({apiVersion: '2015-03-31', region: 'us-east-1', credentials: credentials});
+if(!process.argv[2]){
+    console.log("Please add in a stage when running bat file. (dev, production, production2, prodoregon)");
+    return;
+}
+if(process.argv[2] == "prodoregon"){
+    var region = "us-west-2";
+} else{
+    var region = "us-east-1";
+}
+var lambda = new AWS.Lambda({apiVersion: '2015-03-31', region: region, credentials: credentials});
 var path = require('path');
 var fs = require("fs");
 
@@ -11,7 +20,7 @@ var file = fs.readFile(path.join(__dirname, "index.zip"), function(err, data){
     /* This operation updates a Lambda function's code */
 
     var params = {
-            FunctionName: "restApi2-test-service",
+            FunctionName: "vanilla-categories-show",
             Publish: true,
             ZipFile: data
     };
@@ -20,9 +29,6 @@ var file = fs.readFile(path.join(__dirname, "index.zip"), function(err, data){
             console.log(err, err.stack);
         }
         else {
-            if(!process.argv[2]){
-                console.log("Please add in a stage when running bat file");
-            }
             var paramsAlias = {
                 Description: "Working Through Node V2",
                 FunctionName: data.FunctionName,

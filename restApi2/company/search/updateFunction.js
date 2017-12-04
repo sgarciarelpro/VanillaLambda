@@ -5,13 +5,17 @@ var lambda = new AWS.Lambda({apiVersion: '2015-03-31', region: 'us-east-1', cred
 var path = require('path');
 var fs = require("fs");
 
+if(!process.argv[2]){
+    console.log("Please add in a stage when running bat file. (dev, production, production2)");
+    return;
+}
 
 var file = fs.readFile(path.join(__dirname, "index.zip"), function(err, data){
         console.log("err = ", err);
     /* This operation updates a Lambda function's code */
 
     var params = {
-            FunctionName: "restApi2-test-service",
+            FunctionName: "vanilla-company-search",
             Publish: true,
             ZipFile: data
     };
@@ -20,9 +24,6 @@ var file = fs.readFile(path.join(__dirname, "index.zip"), function(err, data){
             console.log(err, err.stack);
         }
         else {
-            if(!process.argv[2]){
-                console.log("Please add in a stage when running bat file");
-            }
             var paramsAlias = {
                 Description: "Working Through Node V2",
                 FunctionName: data.FunctionName,

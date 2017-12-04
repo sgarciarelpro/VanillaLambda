@@ -227,7 +227,7 @@ module.exports.handler = function (event, context, cb) {
             .catch(function (error) {
                 console.log("3b");
                 console.error(error);
-                cb(null, {"statusCode": 400, "body":JSON.stringify(response)});
+                cb(null, {"statusCode": 400, "body":JSON.stringify(error)});
             });
     } else {
         var errorResponse = createErrorMsg(-200, "CompanySearch");

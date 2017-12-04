@@ -6,4 +6,3 @@ cd ..
 cd ..
 cd ..
 cd bat
-pause
