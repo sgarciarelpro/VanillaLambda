@@ -32,14 +32,12 @@ var useAuth = function(authValue, type, cb, event, host, companySearch, basePath
     return PromiseRequest(isLoggedInOptions, null)
         .then(function(isLoggedInResp){
             if(isLoggedInResp.body.status == 100){
-                var orgBody = JSON.parse(event.body);
+                var eBody = JSON.parse(event.body);
 
-                console.log("body obj = ", JSON.parse(event.body));
-                console.log("org body = ", orgBody);
+                console.log("body obj = ", eBody);
+                console.log("body obj organizations = ", eBody.organizations);
 
-                console.log("body obj organizations = ", orgBody.organizations);
-
-                return Promise.map(orgBody.organizations, function(company){
+                return Promise.map(eBody.organizations, function(company){
                     var func = function(company){
                         var cleanNameOptions = {
                             host: host,
@@ -176,9 +174,8 @@ var useAuth = function(authValue, type, cb, event, host, companySearch, basePath
                 },{
                     concurrency: 2
                 }).then(function(){
-                    console.log("event body when working = ", event.body);
-                    console.log("org body when working = ", orgBody);
-                    return cb(null, {"statusCode": 200, "body":JSON.stringify(orgBody)});
+                    console.log("org body when working = ", eBody);
+                    return cb(null, {"statusCode": 200, "body":JSON.stringify(eBody)});
                 });
             } else {
                 var errorResponse = createErrorMsg(-300, "UniquifyCompanies");
@@ -201,7 +198,9 @@ module.exports.handler = function(event, context, cb)  {
     console.log("companySearchEndpoint = ", companySearchEndpoint);
     var companySearch = lib.buildCompanySearch(companySearchEndpoint);
 
-    if(event.body == undefined || event.body == null || event.body == ""){
+    var eBody = JSON.parse(event.body);
+
+    if(eBody == undefined || eBody == null || eBody == ""){
         var errorResponse = createErrorMsg(-300, "UniquifyCompanies");
         console.log("ERROR = ", errorResponse);
         return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
@@ -215,7 +214,7 @@ module.exports.handler = function(event, context, cb)  {
     console.log("bearer =" + bearer);
     if (bearer != undefined && bearer != null && bearer != "") {
         console.log("a")
-        useAuth(bearer, "Authorization", cb, event);
+        useAuth(bearer, "Authorization", cb, event, host, companySearch, basePath);
     } else if (userToken != undefined && userToken != null && userToken != "") {
         console.log("b")
         useAuth(userToken, "userToken", cb, event, host, companySearch, basePath);

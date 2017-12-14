@@ -15,13 +15,13 @@ var path = require('path');
 var fs = require("fs");
 
 var file = fs.readFile(path.join(__dirname, "index.zip"), function(err, data){
-    console.log("err = ", err);
+        console.log("err = ", err);
     /* This operation updates a Lambda function's code */
 
     var params = {
-        FunctionName: "vanilla-company-search",
-        Publish: true,
-        ZipFile: data
+            FunctionName: "vanilla-geocode-distance",
+            Publish: true,
+            ZipFile: data
     };
     lambda.updateFunctionCode(params, function(err, data) {
         if (err) {
@@ -29,7 +29,7 @@ var file = fs.readFile(path.join(__dirname, "index.zip"), function(err, data){
         }
         else {
             var paramsAlias = {
-                Description: "Working Through Node V2",
+                Description: "Working Through Node V4.3",
                 FunctionName: data.FunctionName,
                 FunctionVersion: data.Version,
                 Name: process.argv[2]

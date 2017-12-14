@@ -1,0 +1,35 @@
+{
+  "header": {
+    "userToken": "938eb30118ec7edbe9fd5689a327b4cc9202f1227c6d8f94d3ebea6ad73b2372"
+  },
+  "body": {
+    "closestTo": {
+      "streetAddress": "One Microsoft Way",
+      "city": "Redmond",
+      "stateOrRegion": "WA",
+      "postalCode": "98052",
+      "country": "US",
+      "description": ""
+    },
+    "addresses": [
+      {
+        "addressId": "hmm",
+        "streetAddress": "114-04 142nd st",
+        "city": "Jamaica",
+        "stateOrRegion": "NY",
+        "postalCode": "11436",
+        "country": "US",
+        "description": ""
+      },
+      {
+        "addressId": "grrr",
+        "streetAddress": "One Microsoft Way",
+        "city": "Redmond",
+        "stateOrRegion": "WA",
+        "postalCode": "98052",
+        "country": "US",
+        "description": ""
+      }
+    ]
+  }
+}

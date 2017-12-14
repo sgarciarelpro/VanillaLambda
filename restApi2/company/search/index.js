@@ -168,6 +168,7 @@ module.exports.handler = function (event, context, cb) {
                         function (req) {
                             if (req != undefined) {
                                 console.log('5a');
+                                console.log("req = ", req);
                                 return req.hits;
                             } else {
                                 console.log('5b');
@@ -182,6 +183,7 @@ module.exports.handler = function (event, context, cb) {
                                 var results = [];
                                 console.log('dataCategories = ' + JSON.stringify(dataCategories));
                                 console.log('reveals = ' + JSON.stringify(reveals));
+                                console.log("data = ", data);
                                 _.each(data.hit, function (result) {
                                     results.push(parseResult(result, dataCategories, reveals));
                                 }, this);

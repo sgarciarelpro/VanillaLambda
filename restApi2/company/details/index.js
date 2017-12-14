@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require("underscore");
-var moment = require('moment');
 var config = require("config/env-config.js").config;
 
 // Require Logic
@@ -10,9 +9,6 @@ var PromiseRequest = lib.PromiseRequest;
 var createErrorMsg = lib.createErrorMsg;
 var errorCheck = lib.errorCheck;
 var hgDataSourceId = lib.hgDataSourceId;
-
-var techSearchEndpoint = process.env.techSearchEndpoint;
-var domainTechStackSearch = lib.buildDomainTechStackSearch(techSearchEndpoint);
 
 var parseResult = function(uResult, dataCategories, reveals){
 
@@ -77,7 +73,7 @@ module.exports.handler = function(event, context, cb) {
     var basePath = config[stage].relProBasePath;
     if (basePath == '/') basePath = '';
 
-    var techSearchEndpoint = process.env.techSearchEndpoint;
+    var techSearchEndpoint = config[stage].techSearchEndpoint;
     var domainTechStackSearch = lib.buildDomainTechStackSearch(techSearchEndpoint);
 
     var eventBody = JSON.parse(event.body);

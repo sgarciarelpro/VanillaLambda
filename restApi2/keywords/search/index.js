@@ -3,25 +3,21 @@
 var _= require("underscore");
 var Promise = require("bluebird");
 
-// Require Serverless ENV vars
-var ServerlessHelpers = require('serverless-helpers-js').loadEnv();
+var config = require("config/env-config.js").config;
 
 // Require Logic
-var lib = require('../../lib');
-var classificationsLib = require('../../lib/classifications');
+var lib = require('lib');
+var classificationsLib = require('lib/classifications');
 var createErrorMsg = lib.createErrorMsg;
 var PromiseRequest = lib.PromiseRequest;
-
-var host = process.env.relProHost;
-var basePath = process.env.relProBasePath;
-if (basePath == '/') basePath = '';
 
 var keywords = classificationsLib.keywords;
 
 var headers ={};
 
-var useAuth = function(authValue, type, cb, event){
+var useAuth = function(authValue, type, cb, event, host, basePath){
     console.log("host="+host);
+    var eBody = JSON.parse(event.body);
     headers[type] = authValue;
     var isLoggedInOptions = {
         host: host,
@@ -39,7 +35,7 @@ var useAuth = function(authValue, type, cb, event){
                 return new Promise(function(resolve, reject){
                     try{
                         var pageSize = 20;
-                        var query = event.body.query.toLowerCase();
+                        var query = eBody.query.toLowerCase();
                         console.log("query=" + query);
 
                         var eMatches = [];
@@ -92,31 +88,38 @@ var useAuth = function(authValue, type, cb, event){
                     }
 
                 }).then(function(response){
-                    return cb(null, {keywords: response});
-
+                    return cb(null, {"statusCode": 200, "body":JSON.stringify({keywords: response})});
                 }).catch(function(err){
                     console.log(err);
                     console.log(err.stack);
                     var errorResponse = createErrorMsg(-200, "KeywordsSearch");
-                    return cb(null, errorResponse);
+                    return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
                 });
 
             } else {
                 var errorResponse = createErrorMsg(-300, "KeywordsSearch");
-                return cb(null, errorResponse);
+                return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
             }
         })
 };
 
 module.exports.handler = function(event, context, cb)  {
-    var userToken = event.header.userToken;
-    var bearer = event.header.Authorization;
+    console.log('EVENT = ', event);
+    var stage = event.stageVariables.functionAlias;
+    console.log('STAGE = ', stage);
+    var host = config[stage].relProHost;
+    console.log("NEW HOST = ", host);
+    var basePath = config[stage].relProBasePath;
+    if (basePath == '/') basePath = '';
+
+    var userToken = event.headers.userToken;
+    var bearer = event.headers.Authorization;
     if (bearer != undefined && bearer != null && bearer != "") {
-        useAuth(bearer, "Authorization", cb, event);
+        useAuth(bearer, "Authorization", cb, event, host, basePath);
     } else if (userToken != undefined && userToken != null && userToken != "") {
-        useAuth(userToken, "userToken", cb, event);
+        useAuth(userToken, "userToken", cb, event, host, basePath);
     } else {
         var errorResponse = createErrorMsg(-300, "KeywordsSearch");
-        return cb(null, errorResponse);
+        return cb(null, {"statusCode": 400, "body": JSON.stringify(errorResponse)});
     }
 };

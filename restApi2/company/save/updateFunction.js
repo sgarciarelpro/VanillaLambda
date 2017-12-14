@@ -19,7 +19,7 @@ var file = fs.readFile(path.join(__dirname, "index.zip"), function(err, data){
     /* This operation updates a Lambda function's code */
 
     var params = {
-        FunctionName: "vanilla-classifications-search",
+        FunctionName: "vanilla-company-save",
         Publish: true,
         ZipFile: data
     };
